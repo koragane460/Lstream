@@ -1974,5 +1974,200 @@ body::before{content:"";position:fixed;inset:0;background:var(--bg-dark);z-index
   }catch(e){}
 })();
 </script>
+
+<style id="ls-v7-requested-fixes">
+/* LStream 7.0 requested fixes */
+#modal{inset:0!important;align-items:stretch!important;padding:0!important;width:100vw!important;max-width:none!important}
+#modal .modal__box{width:100vw!important;max-width:none!important;height:100dvh!important;max-height:none!important;margin:0!important;border-radius:0!important}
+#modal .modal__body{padding-bottom:24px!important}
+.watch-synopsis{display:-webkit-box!important;-webkit-line-clamp:2!important;-webkit-box-orient:vertical!important;overflow:hidden!important}
+.watch-synopsis.expanded{display:block!important;-webkit-line-clamp:unset!important}
+.comment-form{display:flex!important;visibility:visible!important;opacity:1!important;position:relative!important;z-index:3!important}
+.comments-section{overflow:visible!important}
+.comment-list{overflow:visible!important}
+.comment-item{position:relative;overflow:hidden;padding:12px!important;border:1px solid rgba(255,255,255,.065);border-radius:16px;background:rgba(255,255,255,.025);box-shadow:0 8px 22px rgba(0,0,0,.12);animation:lsCommentIn .42s cubic-bezier(.2,.8,.2,1) both}
+.comment-item::before{content:"";position:absolute;inset:0;background-image:var(--comment-banner,none);background-size:cover;background-position:center;opacity:.45;pointer-events:none;z-index:0}
+.comment-item::after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(6,10,20,.72),rgba(6,10,20,.88));pointer-events:none;z-index:0}
+.comment-item>*{position:relative;z-index:1}
+@keyframes lsCommentIn{from{opacity:0;transform:translateY(10px) scale(.985)}to{opacity:1;transform:none}}
+#searchResults .anime-card{animation:lsSearchIn .46s cubic-bezier(.2,.8,.2,1) both}
+#searchResults .anime-card:nth-child(1){animation-delay:.03s}#searchResults .anime-card:nth-child(2){animation-delay:.07s}#searchResults .anime-card:nth-child(3){animation-delay:.11s}#searchResults .anime-card:nth-child(4){animation-delay:.15s}#searchResults .anime-card:nth-child(5){animation-delay:.19s}#searchResults .anime-card:nth-child(6){animation-delay:.23s}#searchResults .anime-card:nth-child(7){animation-delay:.27s}#searchResults .anime-card:nth-child(8){animation-delay:.31s}#searchResults .anime-card:nth-child(9){animation-delay:.35s}#searchResults .anime-card:nth-child(10){animation-delay:.39s}#searchResults .anime-card:nth-child(11){animation-delay:.43s}#searchResults .anime-card:nth-child(12){animation-delay:.47s}
+@keyframes lsSearchIn{from{opacity:0;transform:translateY(14px) scale(.97);filter:blur(3px)}to{opacity:1;transform:none;filter:none}}
+button{border-radius:15px!important}
+.icon-btn,.navbar__iconbtn,.watch-close-btn,.search-modal__close,.account-info-close,.popup-sheet__close,.quality-modal__close,.checkin-popup__close,.warning-box__close,.dev-action-modal .quality-modal__close,.comment-action,.chat-msg__inline-reply,.notif-item__del{border-radius:50%!important}
+.ban-notice__box,.ban-notice--mute .ban-notice__box{background:radial-gradient(circle at top,rgba(47,125,255,.22),transparent 40%),linear-gradient(160deg,#102247,#08101f)!important;border-color:rgba(74,141,255,.55)!important}
+.ban-notice__icon,.ban-notice--mute .ban-notice__icon{box-shadow:0 0 34px rgba(47,125,255,.28)!important}
+.ban-notice__timer{box-shadow:inset 0 0 18px rgba(47,125,255,.1)!important}
+.ban-notice--mute .ban-notice__box .ban-notice__title,.ban-notice--mute .ban-notice__box .ban-notice__timer{color:#7ab0ff!important}
+.notif-list{padding:4px 2px 16px}
+.notif-item{position:relative;border:1px solid rgba(122,176,255,.11);background:linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.018));box-shadow:0 10px 28px rgba(0,0,0,.16);animation:lsNotifIn .35s ease both}
+.notif-item--update{border-color:rgba(74,141,255,.2)}
+.notif-item__media{width:44px;height:60px;border-radius:11px;object-fit:cover;flex-shrink:0;background:#111a2c}
+.notif-item__avatar{display:flex;align-items:center;justify-content:center}
+.notif-item__title{font-weight:850;font-size:.88rem;line-height:1.25;margin-bottom:3px}
+.notif-item__type{display:inline-flex;padding:2px 7px;border-radius:8px;background:rgba(74,141,255,.11);color:#7ab0ff;font-size:.6rem;font-weight:800;margin-bottom:4px}
+.notif-actions-bar{background:rgba(10,15,28,.97);backdrop-filter:blur(12px)}
+#clearAllNotifBtn{background:linear-gradient(135deg,#2f7dff,#1a56cc)!important;border:0!important;color:#fff!important;box-shadow:0 8px 22px rgba(47,125,255,.25)}
+.ls-broadcast-box{margin-top:4px;padding:16px;border-radius:20px;background:linear-gradient(160deg,rgba(20,36,67,.92),rgba(9,16,30,.96));border:1px solid rgba(74,141,255,.2);box-shadow:0 16px 38px rgba(0,0,0,.22)}
+.ls-broadcast-head{display:flex;align-items:center;gap:10px;margin-bottom:12px}.ls-broadcast-icon{width:42px;height:42px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(74,141,255,.2),rgba(26,86,204,.12));color:#7ab0ff;font-size:20px}
+.ls-broadcast-title{font-size:.9rem;font-weight:850}.ls-broadcast-sub{font-size:.68rem;color:var(--text-muted);margin-top:2px;line-height:1.35}
+.ls-broadcast-field{display:flex;flex-direction:column;gap:6px;margin-bottom:10px}.ls-broadcast-field label{font-size:.68rem;font-weight:800;color:var(--text-muted)}
+.ls-broadcast-field input,.ls-broadcast-field textarea{width:100%;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.04);color:var(--text-main);border-radius:13px;padding:11px 12px;font:inherit;font-size:.8rem;outline:none}.ls-broadcast-field textarea{min-height:90px;resize:vertical}
+#lsBroadcastSend{width:100%;padding:11px;border:0;background:linear-gradient(135deg,#4a8dff,#1a56cc);color:#fff;font-weight:850;cursor:pointer}.ls-broadcast-status{font-size:.68rem;color:var(--text-muted);margin-top:8px;line-height:1.4}
+body.ls-muted .chat-input-bar,body.ls-muted .comment-form{opacity:.55!important}
+body.ls-banned .navbar,body.ls-banned .bottom-nav,body.ls-banned main,body.ls-banned .hero,body.ls-banned .footer,body.ls-banned .user-panel-wrap{pointer-events:none!important;filter:blur(1px)}
+@keyframes lsNotifIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+</style>
+<script id="ls-v7-requested-fixes-js">
+(function(){
+  'use strict';
+  var LS='lstream_notifications';
+  function scopedNotifKey(name){ return LS+'::'+String(name||'anonymous'); }
+  function getUserNotifsFor(name){ try{return JSON.parse(SafeStorage.getItem(scopedNotifKey(name))||'[]')}catch(e){return[]} }
+  function saveUserNotifsFor(name,arr){ try{SafeStorage.setItem(scopedNotifKey(name),JSON.stringify(arr.slice(0,100)))}catch(e){} }
+  function pushNotifForUser(name,from,text,extra){
+    if(!name) return;
+    var arr=getUserNotifsFor(name); var n=Object.assign({id:Date.now()+Math.random(),from:from||'LStream',text:text||'',time:Date.now()},extra||{}); arr.unshift(n); saveUserNotifsFor(name,arr);
+    if(userState&&userState.username===name){try{renderNotifBadge();if(notifOverlay&&notifOverlay.classList.contains('open'))renderNotifList()}catch(e){}}
+  }
+  window.__lsPushNotifForUser=pushNotifForUser;
+  window.__lsGetUserNotifs=getUserNotifsFor;
+  window.__lsSaveUserNotifs=saveUserNotifsFor;
+  window.__lsPublishUserNotif=function(target,from,text,extra){
+    pushNotifForUser(target,from,text,extra);
+    try{if(window.__lsPublishRemoteUserNotif)window.__lsPublishRemoteUserNotif(target,from,text,extra);}catch(e){}
+  };
+
+  /* Per-account notifications: old global notifications are migrated once. */
+  try{
+    if(userState&&userState.username){
+      var legacy=[];try{legacy=JSON.parse(SafeStorage.getItem(LS)||'[]')}catch(e){}
+      if(legacy.length && !SafeStorage.getItem(LS+'::migrated')){saveUserNotifsFor(userState.username,legacy);SafeStorage.setItem(LS+'::migrated','1');}
+    }
+  }catch(e){}
+  window.getNotifs=function(){return getUserNotifsFor(userState&&userState.username);};
+  window.saveNotifs=function(n){saveUserNotifsFor(userState&&userState.username,n||[]);renderNotifBadge();};
+  window.pushNotif=function(from,text){pushNotifForUser(userState&&userState.username,from,text);};
+
+  function formatJoinDuration(ts){
+    var start=Number(ts)||Date.now(), diff=Math.max(0,Date.now()-start); var sec=Math.floor(diff/1000), min=Math.floor(sec/60), hr=Math.floor(min/60), day=Math.floor(hr/24);
+    if(day>=365){var y=Math.floor(day/365);var mo=Math.floor((day%365)/30);return y+' tahun'+(mo?' '+mo+' bulan':'');}
+    if(day>=30){var mo2=Math.floor(day/30);var d2=day%30;return mo2+' bulan'+(d2?' '+d2+' hari':'');}
+    if(day>=1){return day+' hari '+(hr%24)+' jam';}
+    if(hr>=1){return hr+' jam '+(min%60)+' menit';}
+    if(min>=1){return min+' menit '+(sec%60)+' detik';}
+    return sec+' detik';
+  }
+  window.__lsFormatJoinDuration=formatJoinDuration;
+  function patchJoinStat(){try{if(!accountContent)return;var stats=accountContent.querySelectorAll('.acct__stats .acct__stat');if(!stats.length)return;var last=stats[stats.length-1];var b=last.querySelector('b'),sp=last.querySelector('span');if(b)b.textContent=formatJoinDuration(userState.joinedAt);if(sp)sp.textContent='Bergabung';}catch(e){}}
+  var oldRenderAccount=window.renderAccountPage;
+  if(typeof oldRenderAccount==='function'){
+    window.renderAccountPage=function(){var r=oldRenderAccount.apply(this,arguments);setTimeout(patchJoinStat,0);return r;};
+  }
+
+  /* Password eye: eye-off icon while visible, no focus loss. */
+  function updateEye(){var b=$('togglePassword'),p=$('authPassword');if(!b||!p)return;var visible=p.type==='text';b.innerHTML=visible?'<svg viewBox="0 0 24 24"><path d="M3 3l18 18"/><path d="M10.58 10.58A2 2 0 0 0 12 16c1.1 0 2-.9 2-2 0-.52-.2-1-.58-1.42"/><path d="M9.88 5.09A10.6 10.6 0 0 0 2 12s3.5 7 10 7c1.58 0 2.96-.38 4.15-1"/><path d="M14.12 18.91A10.6 10.6 0 0 0 22 12s-3.5-7-10-7c-.74 0-1.45.08-2.12.22"/></svg>':'<svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>';b.setAttribute('aria-pressed',String(visible));}
+  var eye=$('togglePassword');if(eye){eye.onclick=function(e){e.preventDefault();var p=$('authPassword');if(!p)return;var pos=p.selectionStart; p.type=p.type==='password'?'text':'password';try{p.setSelectionRange(pos,pos);p.focus({preventScroll:true})}catch(_){}updateEye();};updateEye();}
+
+  /* Strong UI enforcement for timed mute/ban. */
+  function muted(){return !!(userState&&userState.loggedIn&&isUserMuted(userState.username));}
+  function banned(){return !!(userState&&userState.loggedIn&&(isUserBanned(userState.username)||isDeviceBanned()));}
+  function refreshModerationLock(){
+    try{
+      var m=muted(),b=banned(); document.body.classList.toggle('ls-muted',m);document.body.classList.toggle('ls-banned',b);
+      [chatInput,dmInput,commentInput].forEach(function(el){if(el){el.disabled=m||b;el.setAttribute('aria-disabled',String(m||b));}});
+      [chatSendBtn,dmSendBtn,sendCommentBtn].forEach(function(el){if(el)el.disabled=m||b||el.disabled;});
+      if(b&&!window.__lsBanLockRunning){window.__lsBanLockRunning=true;var info=isUserBanned(userState.username)||isDeviceBanned();if(info)showBanNotice(info);setTimeout(function(){try{handleLogout()}catch(e){}setTimeout(function(){if(info)showBanNotice(info)},60);window.__lsBanLockRunning=false;},80);}
+    }catch(e){}
+  }
+  function blockIfRestricted(e){if(!userState||!userState.loggedIn)return;var m=muted(),b=banned();if(m||b){e.preventDefault();e.stopImmediatePropagation();if(b){var bi=isUserBanned(userState.username)||isDeviceBanned();if(bi)showBanNotice(bi)}else if(isUserMuted(userState.username))showMuteNotice(isUserMuted(userState.username));return true;}return false;}
+  [chatSendBtn,dmSendBtn,sendCommentBtn].forEach(function(el){if(el)el.addEventListener('click',blockIfRestricted,true);});
+  [chatInput,dmInput,commentInput].forEach(function(el){if(el)el.addEventListener('keydown',blockIfRestricted,true);});
+  setInterval(refreshModerationLock,500); refreshModerationLock();
+
+  /* Prevent username changes while moderated, closing the rename loophole. */
+  var renameBtn=$('changeUsernameBtn');if(renameBtn){renameBtn.addEventListener('click',function(e){if(muted()||banned()){e.preventDefault();e.stopImmediatePropagation();}} ,true);}
+
+  /* Friend request notifications go to the recipient account. */
+  var oldSendFriend=window.sendFriendRequest;
+  if(typeof oldSendFriend==='function')window.sendFriendRequest=function(from,to){var ok=oldSendFriend.apply(this,arguments);if(ok&&from!==to)window.__lsPublishUserNotif(to,from,'mengirim permintaan pertemanan',{type:'friend'});return ok;};
+
+  /* Reaction notifications. */
+  var oldToggleReaction=window.toggleReaction;
+  if(typeof oldToggleReaction==='function')window.toggleReaction=function(ctx,msgId,emoji){
+    var before=null;try{if(ctx==='global'){before=(getGlobalChat().find(function(x){return String(x.id)===String(msgId)})||{});}else if(String(ctx).indexOf('dm_')===0){before=null;}}catch(e){}
+    var r=oldToggleReaction.apply(this,arguments);
+    try{if(before&&before.fromName&&before.fromName!==userState.username){window.__lsPublishUserNotif(before.fromName,userState.username,'memberi reaksi '+emoji+' pada pesanmu',{type:'reaction'});}}catch(e){}
+    return r;
+  };
+
+  /* Reply notifications. */
+  if(replyPopupSend)replyPopupSend.addEventListener('click',function(){setTimeout(function(){try{if(!state.currentWatch||!state.replyCommentId)return;var parent=(getComments(state.currentWatch.anime.mal_id)||[]).find(function(c){return c.id===state.replyCommentId});if(parent&&parent.name&&parent.name!==userState.username)window.__lsPublishUserNotif(parent.name,userState.username,'membalas komentarmu',{type:'reply'});}catch(e){}},40);});
+  /* DM notifications. */
+  if(dmSendBtn)dmSendBtn.addEventListener('click',function(){var target=state.dmTarget&&state.dmTarget.name;if(target&&target!==userState.username&&!muted())setTimeout(function(){window.__lsPublishUserNotif(target,userState.username,'mengirim pesan kepadamu',{type:'message'});},40);});
+
+  /* Rich notification renderer. */
+  window.renderNotifList=function(){
+    var nc=$('notifContent');if(!nc)return;var ns=getUserNotifsFor(userState&&userState.username);var count=$('notifCountLabel');if(count)count.textContent=ns.length+' notifikasi';
+    if(!ns.length){nc.innerHTML='<div class="notif-empty">Tidak ada notifikasi</div>';return;}
+    nc.innerHTML='<div class="notif-list">'+ns.map(function(n){
+      var title=n.title||n.from||'LStream';var type=n.type||'activity';var media=n.image?'<img class="notif-item__media" src="'+esc(n.image)+'" onerror="this.style.display=\'none\'">':'<div class="notif-item__avatar">'+(type==='update'?'<span style="font-size:20px">🔔</span>':esc((n.from||'L').charAt(0).toUpperCase()))+'</div>';
+      var label=type==='update'?'UPDATE':type==='anime'?(n.kind||'ANIME BARU'):type==='episode'?'EPISODE':type==='movie'?'MOVIE':type==='ova'?'OVA':type==='reaction'?'REAKSI':type==='friend'?'PERTEMANAN':type==='message'?'PESAN':'BALASAN';
+      return '<div class="notif-item '+(type==='update'?'notif-item--update':'')+'">'+media+'<div class="notif-item__body"><div class="notif-item__type">'+esc(label)+'</div><div class="notif-item__title">'+esc(title)+'</div><div class="notif-item__text">'+esc(n.text||n.description||'')+'</div><div class="notif-item__time">'+formatRelativeTime(n.time||Date.now())+'</div></div><button class="notif-item__del" data-del="'+esc(n.id)+'">'+ICON.x+'</button></div>';
+    }).join('')+'</div>';
+  };
+  if(notifContent)notifContent.addEventListener('click',function(e){var d=e.target.closest('[data-del]');if(!d)return;var id=d.dataset.del;saveNotifs(getNotifs().filter(function(x){return String(x.id)!==String(id)}));renderNotifList();});
+
+  /* Broadcast update-log panel for developer. */
+  function broadcastPanelHTML(){return '<div class="settings-box"><div class="settings-box__title">🔔 Broadcast Update</div><div class="ls-broadcast-box"><div class="ls-broadcast-head"><div class="ls-broadcast-icon">🔔</div><div><div class="ls-broadcast-title">Kirim Notifikasi ke Semua User</div><div class="ls-broadcast-sub">Notifikasi update akan dikirim sebagai kartu tersendiri di panel Notifikasi.</div></div></div><div class="ls-broadcast-field"><label>Judul</label><input id="lsBroadcastTitle" maxlength="80" placeholder="Update versi 7.0"></div><div class="ls-broadcast-field"><label>Deskripsi / Log Update</label><textarea id="lsBroadcastDesc" maxlength="500" placeholder="Tulis perubahan pada versi ini..."></textarea></div><button id="lsBroadcastSend">Kirim ke Semua Users</button><div class="ls-broadcast-status" id="lsBroadcastStatus">Menyiapkan koneksi broadcast...</div></div></div>';}
+  var oldDevPanel=window.renderDevPanelHTML;
+  if(typeof oldDevPanel==='function')window.renderDevPanelHTML=function(){return oldDevPanel.apply(this,arguments)+broadcastPanelHTML();};
+
+  /* Optional Firebase Firestore transport for real cross-user broadcast. */
+  var globalDb=null,globalUnsub=null;
+  async function initGlobalNotifications(){
+    try{
+      if(globalUnsub||!userState||!userState.loggedIn)return;
+      var appMod=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js');
+      var fs=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js');window.__lsFirestoreModule=fs;
+      var app;try{app=appMod.getApp();}catch(e){app=appMod.initializeApp({apiKey:'AIzaSyDuwvET5WUm1U4_sZ8GKs9ocDQ2HyVqxWo',authDomain:'lstream-60c4c.firebaseapp.com',projectId:'lstream-60c4c',storageBucket:'lstream-60c4c.firebasestorage.app',messagingSenderId:'94048638541',appId:'1:94048638541:web:479cd8d16d9634faf8ae04',measurementId:'G-K9KXQWYYDB'},'LStreamBroadcast');}
+      globalDb=fs.getFirestore(app);var q=fs.query(fs.collection(globalDb,'lstream_global_notifications'),fs.limit(100));
+      globalUnsub=fs.onSnapshot(q,function(snap){var seen=[];try{seen=JSON.parse(SafeStorage.getItem('lstream_global_seen')||'[]')}catch(e){};snap.docChanges().forEach(function(ch){if(ch.type!=='added')return;var d=ch.doc.data()||{};var id=ch.doc.id;if(seen.indexOf(id)!==-1)return;seen.push(id);if(seen.length>200)seen=seen.slice(-200);SafeStorage.setItem('lstream_global_seen',JSON.stringify(seen));pushNotifForUser(userState.username,'LStream',d.description||'',{id:'global_'+id,type:d.type||'update',title:d.title||'Update',image:d.image||'',kind:d.kind||'',time:d.createdAt&&d.createdAt.toMillis?d.createdAt.toMillis():Date.now()});});renderNotifBadge();if(notifOverlay&&notifOverlay.classList.contains('open'))renderNotifList();},function(err){var st=$('lsBroadcastStatus');if(st)st.textContent='Broadcast online belum aktif: '+((err&&err.code)||'permission').replace(/-/g,' ')+'. Fitur lokal tetap tersedia.';});
+      try{var uq=fs.query(fs.collection(globalDb,'lstream_user_notifications'),fs.limit(200));fs.onSnapshot(uq,function(snap){var seenU=[];try{seenU=JSON.parse(SafeStorage.getItem('lstream_user_seen')||'[]')}catch(e){};snap.docChanges().forEach(function(ch){if(ch.type!=='added')return;var d=ch.doc.data()||{};if(String(d.targetUsername||'')!==String(userState.username||''))return;var id=ch.doc.id;if(seenU.indexOf(id)!==-1)return;seenU.push(id);if(seenU.length>300)seenU=seenU.slice(-300);SafeStorage.setItem('lstream_user_seen',JSON.stringify(seenU));pushNotifForUser(userState.username,d.from||'LStream',d.text||'',{id:'user_'+id,type:d.type||'activity',title:d.title||d.from||'Notifikasi',image:d.image||'',time:d.time||Date.now()});});renderNotifBadge();if(notifOverlay&&notifOverlay.classList.contains('open'))renderNotifList();});}catch(e){}
+      var st=$('lsBroadcastStatus');if(st)st.textContent='Broadcast online siap. Pastikan Firestore Rules mengizinkan read/write koleksi lstream_global_notifications.';
+      window.__lsPublishRemoteUserNotif=function(target,from,text,extra){try{if(!globalDb)return;var fs=window.__lsFirestoreModule||null;if(fs)return fs.addDoc(fs.collection(globalDb,'lstream_user_notifications'),Object.assign({targetUsername:target,from:from,text:text,time:Date.now(),createdAt:fs.serverTimestamp()},extra||{}));}catch(e){}};
+    }catch(e){var st2=$('lsBroadcastStatus');if(st2)st2.textContent='Broadcast online belum tersedia. Notifikasi lokal tetap berjalan.';}
+  }
+  async function publishBroadcast(){
+    var title=($('lsBroadcastTitle')&&$('lsBroadcastTitle').value||'').trim();var desc=($('lsBroadcastDesc')&&$('lsBroadcastDesc').value||'').trim();var st=$('lsBroadcastStatus');if(!title||!desc){if(st)st.textContent='Judul dan deskripsi wajib diisi.';return;}
+    try{
+      if(!globalDb){await initGlobalNotifications();}
+      if(!globalDb)throw new Error('Firestore belum siap');
+      var fs=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js');await fs.addDoc(fs.collection(globalDb,'lstream_global_notifications'),{title:title,description:desc,type:'update',createdAt:fs.serverTimestamp(),createdBy:userState.username||'Developer'});
+      if(st)st.textContent='✓ Notifikasi berhasil dikirim ke semua user yang terhubung.';if($('lsBroadcastTitle'))$('lsBroadcastTitle').value='';if($('lsBroadcastDesc'))$('lsBroadcastDesc').value='';
+    }catch(e){
+      /* Local fallback for testing; real cross-user delivery requires Firestore Rules. */
+      pushNotifForUser(userState.username,'LStream',desc,{type:'update',title:title});if(st)st.textContent='Tersimpan lokal. Untuk semua user, aktifkan Firestore Rules koleksi lstream_global_notifications.';renderNotifBadge();
+    }
+  }
+  window.__lsInitGlobalNotifications=initGlobalNotifications;
+  function bindBroadcast(){var b=$('lsBroadcastSend');if(b&&!b.dataset.bound){b.dataset.bound='1';b.addEventListener('click',publishBroadcast);}if(userState&&userState.loggedIn&&isDeveloper())initGlobalNotifications();}
+  var oldBindDev=window.bindDevPanelEvents;
+  if(typeof oldBindDev==='function')window.bindDevPanelEvents=function(){var r=oldBindDev.apply(this,arguments);setTimeout(bindBroadcast,0);return r;};
+
+  /* Store the current banner with new comments; render wrapper applies 45% visual opacity. */
+  var oldRenderComments=window.renderWatchComments;
+  if(typeof oldRenderComments==='function')window.renderWatchComments=function(){var r=oldRenderComments.apply(this,arguments);try{var banner=(getSettings()||{}).bgUrl||'';document.querySelectorAll('#commentList .comment-item').forEach(function(item){if(banner)item.style.setProperty('--comment-banner',"url('"+String(banner).replace(/'/g,'%27')+"')");});}catch(e){}return r;};
+
+  /* Make search opening/result insertion visibly smooth without changing search logic. */
+  var oldHandleSearch=window.handleSearch;
+  if(typeof oldHandleSearch==='function')window.handleSearch=function(){var r=oldHandleSearch.apply(this,arguments);try{if(searchResults){searchResults.classList.remove('ls-search-refresh');void searchResults.offsetWidth;searchResults.classList.add('ls-search-refresh');}}catch(e){}return r;};
+
+  /* Initialize after account is ready and periodically refresh join duration. */
+  setTimeout(function(){patchJoinStat();if(userState&&userState.loggedIn&&isDeveloper())initGlobalNotifications();},900);
+  setInterval(patchJoinStat,60000);
+})();
+</script>
+
 </body>
 </html>
