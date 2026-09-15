@@ -668,6 +668,22 @@ body.light-mode .chat-msg__bubble{background:#e8edf5;color:#0f1626}
 body.light-mode .chat-input-bar{background:rgba(255,255,255,.95)}
 body.light-mode .user-fullscreen-overlay{background:#f0f3f9}
 </style>
+<link rel="modulepreload" href="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js">
+<link rel="modulepreload" href="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js">
+
+<style id="ls-ultra-fast-startup">
+/* Ultra-fast startup: show cached app shell immediately and keep first paint cheap. */
+.auth-gate.hidden{display:none!important;opacity:0!important;visibility:hidden!important;pointer-events:none!important}
+.anime-card__img{content-visibility:auto;}
+@media (prefers-reduced-motion: no-preference){.auth-gate{transition:opacity .12s ease!important}}
+</style>
+
+<style id="ls-restored-account-progress">
+.acct__bar{display:block!important;visibility:visible!important;opacity:1!important}
+.acct__bar-fill{display:block!important;visibility:visible!important}
+.user-panel__bar{display:block!important;visibility:visible!important;opacity:1!important}
+.user-panel__bar-fill{display:block!important;visibility:visible!important}
+</style>
 </head>
 <body>
 
@@ -927,7 +943,7 @@ window.__fb = { ready: false };
     provider.setCustomParameters({ prompt: "select_account" });
     window.__fb.auth = auth; window.__fb.ready = true;
     window.__fb.signOut = () => signOut(auth);
-    window.__fb.signIn = async () => { try { return await signInWithPopup(auth, provider); } catch (e) { var c = (e && e.code) || ""; if (c === "auth/popup-closed-by-user" || c === "auth/cancelled-popup-request" || c === "auth/popup-blocked") throw e; return signInWithRedirect(auth, provider); } };
+    window.__fb.signIn = async () => { try { return await signInWithRedirect(auth, provider); } catch (e) { var c = (e && e.code) || ""; if (c === "auth/unauthorized-domain") { throw new Error("Domain ini belum diizinkan di Firebase Authentication. Tambahkan domain GitHub Pages di Firebase Console → Authentication → Settings → Authorized domains."); } throw e; } };
     window.__fb.register = async (email, password, name) => { const cred = await createUserWithEmailAndPassword(auth, email, password); if (name) { try { await updateProfile(cred.user, { displayName: name }); } catch (e) {} } return cred.user; };
     window.__fb.loginEmail = (email, password) => signInWithEmailAndPassword(auth, email, password);
     window.__fb.resetPassword = (email) => sendPasswordResetEmail(auth, email);
@@ -938,7 +954,7 @@ window.__fb = { ready: false };
       var pending = false; try { pending = SafeStorage.getItem("lstream_auth_pending") === "1"; } catch(e){}
       if (pending) return;
       if (document.body.classList.contains("logged-in")) { document.body.classList.remove("logged-in"); var o = document.getElementById("onboarding"); if (o) { o.style.display = "flex"; requestAnimationFrame(function () { try { o.classList.add("show"); } catch (e) {} }); } }
-      if (!window.__authResolved) { window.__authResolved = true; var g = document.getElementById("authGate"); if (g) { g.classList.add("hidden"); setTimeout(function () { try { g.style.display = "none"; } catch (e) {} }, 500); } if (!(SafeStorage.getItem("lstream_logged_in") === "1" && getUser() && getUser().loggedIn)) { var onb = document.getElementById("onboarding"); if (onb) { onb.style.display = "flex"; requestAnimationFrame(function () { try { onb.classList.add("show"); } catch (e) {} }); } } }
+      if (!window.__authResolved) { window.__authResolved = true; var g = document.getElementById("authGate"); if (g) { g.classList.add("hidden"); g.style.display = "none"; } if (!(SafeStorage.getItem("lstream_logged_in") === "1" && getUser() && getUser().loggedIn)) { var onb = document.getElementById("onboarding"); if (onb) { onb.style.display = "flex"; requestAnimationFrame(function () { try { onb.classList.add("show"); } catch (e) {} }); } } }
     });
   } catch (e) { console.error("Firebase error:", e); var g = document.getElementById("authGate"); if (g) { g.classList.add("hidden"); setTimeout(function () { g.style.display = "none"; }, 500); } }
 })();
@@ -1152,7 +1168,7 @@ function initOnboarding() {
     if (loggedIn) {
       document.body.classList.add("logged-in");
       onboarding.style.display = "none"; onboarding.classList.remove("show");
-      var g = $("authGate"); if (g) { g.classList.add("hidden"); setTimeout(function () { try { g.style.display = "none"; } catch (e) {} }, 500); }
+      var g = $("authGate"); if (g) { g.classList.add("hidden"); g.style.display = "none"; }
       window.__authResolved = true;
       if (checkBanMuteState()) return;
       seedDummyFriendsIfEmpty(); seedDummyChat(); startGuestTimer();
@@ -2033,10 +2049,6 @@ body.ls-banned .navbar,body.ls-banned .bottom-nav,body.ls-banned main,body.ls-ba
   window.__lsPushNotifForUser=pushNotifForUser;
   window.__lsGetUserNotifs=getUserNotifsFor;
   window.__lsSaveUserNotifs=saveUserNotifsFor;
-  window.__lsPublishUserNotif=function(target,from,text,extra){
-    pushNotifForUser(target,from,text,extra);
-    try{if(window.__lsPublishRemoteUserNotif)window.__lsPublishRemoteUserNotif(target,from,text,extra);}catch(e){}
-  };
 
   /* Per-account notifications: old global notifications are migrated once. */
   try{
@@ -2077,7 +2089,7 @@ body.ls-banned .navbar,body.ls-banned .bottom-nav,body.ls-banned main,body.ls-ba
       var m=muted(),b=banned(); document.body.classList.toggle('ls-muted',m);document.body.classList.toggle('ls-banned',b);
       [chatInput,dmInput,commentInput].forEach(function(el){if(el){el.disabled=m||b;el.setAttribute('aria-disabled',String(m||b));}});
       [chatSendBtn,dmSendBtn,sendCommentBtn].forEach(function(el){if(el)el.disabled=m||b||el.disabled;});
-      if(b&&!window.__lsBanLockRunning){window.__lsBanLockRunning=true;var info=isUserBanned(userState.username)||isDeviceBanned();if(info)showBanNotice(info);setTimeout(function(){try{handleLogout()}catch(e){}setTimeout(function(){if(info)showBanNotice(info)},60);window.__lsBanLockRunning=false;},80);}
+      if(b&&!window.__lsBanLockRunning){window.__lsBanLockRunning=true;var info=isUserBanned(userState.username)||isDeviceBanned();if(info)showBanNotice(info);setTimeout(function(){try{handleLogout()}catch(e){}window.__lsBanLockRunning=false;},80);}
     }catch(e){}
   }
   function blockIfRestricted(e){if(!userState||!userState.loggedIn)return;var m=muted(),b=banned();if(m||b){e.preventDefault();e.stopImmediatePropagation();if(b){var bi=isUserBanned(userState.username)||isDeviceBanned();if(bi)showBanNotice(bi)}else if(isUserMuted(userState.username))showMuteNotice(isUserMuted(userState.username));return true;}return false;}
@@ -2090,21 +2102,21 @@ body.ls-banned .navbar,body.ls-banned .bottom-nav,body.ls-banned main,body.ls-ba
 
   /* Friend request notifications go to the recipient account. */
   var oldSendFriend=window.sendFriendRequest;
-  if(typeof oldSendFriend==='function')window.sendFriendRequest=function(from,to){var ok=oldSendFriend.apply(this,arguments);if(ok&&from!==to)window.__lsPublishUserNotif(to,from,'mengirim permintaan pertemanan',{type:'friend'});return ok;};
+  if(typeof oldSendFriend==='function')window.sendFriendRequest=function(from,to){var ok=oldSendFriend.apply(this,arguments);if(ok&&from!==to)pushNotifForUser(to,from,'mengirim permintaan pertemanan',{type:'friend'});return ok;};
 
   /* Reaction notifications. */
   var oldToggleReaction=window.toggleReaction;
   if(typeof oldToggleReaction==='function')window.toggleReaction=function(ctx,msgId,emoji){
     var before=null;try{if(ctx==='global'){before=(getGlobalChat().find(function(x){return String(x.id)===String(msgId)})||{});}else if(String(ctx).indexOf('dm_')===0){before=null;}}catch(e){}
     var r=oldToggleReaction.apply(this,arguments);
-    try{if(before&&before.fromName&&before.fromName!==userState.username){window.__lsPublishUserNotif(before.fromName,userState.username,'memberi reaksi '+emoji+' pada pesanmu',{type:'reaction'});}}catch(e){}
+    try{if(before&&before.fromName&&before.fromName!==userState.username){pushNotifForUser(before.fromName,userState.username,'memberi reaksi '+emoji+' pada pesanmu',{type:'reaction'});}}catch(e){}
     return r;
   };
 
   /* Reply notifications. */
-  if(replyPopupSend)replyPopupSend.addEventListener('click',function(){setTimeout(function(){try{if(!state.currentWatch||!state.replyCommentId)return;var parent=(getComments(state.currentWatch.anime.mal_id)||[]).find(function(c){return c.id===state.replyCommentId});if(parent&&parent.name&&parent.name!==userState.username)window.__lsPublishUserNotif(parent.name,userState.username,'membalas komentarmu',{type:'reply'});}catch(e){}},40);});
+  if(replyPopupSend)replyPopupSend.addEventListener('click',function(){setTimeout(function(){try{if(!state.currentWatch||!state.replyCommentId)return;var parent=(getComments(state.currentWatch.anime.mal_id)||[]).find(function(c){return c.id===state.replyCommentId});if(parent&&parent.name&&parent.name!==userState.username)pushNotifForUser(parent.name,userState.username,'membalas komentarmu',{type:'reply'});}catch(e){}},40);});
   /* DM notifications. */
-  if(dmSendBtn)dmSendBtn.addEventListener('click',function(){var target=state.dmTarget&&state.dmTarget.name;if(target&&target!==userState.username&&!muted())setTimeout(function(){window.__lsPublishUserNotif(target,userState.username,'mengirim pesan kepadamu',{type:'message'});},40);});
+  if(dmSendBtn)dmSendBtn.addEventListener('click',function(){var target=state.dmTarget&&state.dmTarget.name;if(target&&target!==userState.username&&!muted())setTimeout(function(){pushNotifForUser(target,userState.username,'mengirim pesan kepadamu',{type:'message'});},40);});
 
   /* Rich notification renderer. */
   window.renderNotifList=function(){
@@ -2129,13 +2141,11 @@ body.ls-banned .navbar,body.ls-banned .bottom-nav,body.ls-banned main,body.ls-ba
     try{
       if(globalUnsub||!userState||!userState.loggedIn)return;
       var appMod=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js');
-      var fs=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js');window.__lsFirestoreModule=fs;
+      var fs=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js');
       var app;try{app=appMod.getApp();}catch(e){app=appMod.initializeApp({apiKey:'AIzaSyDuwvET5WUm1U4_sZ8GKs9ocDQ2HyVqxWo',authDomain:'lstream-60c4c.firebaseapp.com',projectId:'lstream-60c4c',storageBucket:'lstream-60c4c.firebasestorage.app',messagingSenderId:'94048638541',appId:'1:94048638541:web:479cd8d16d9634faf8ae04',measurementId:'G-K9KXQWYYDB'},'LStreamBroadcast');}
       globalDb=fs.getFirestore(app);var q=fs.query(fs.collection(globalDb,'lstream_global_notifications'),fs.limit(100));
       globalUnsub=fs.onSnapshot(q,function(snap){var seen=[];try{seen=JSON.parse(SafeStorage.getItem('lstream_global_seen')||'[]')}catch(e){};snap.docChanges().forEach(function(ch){if(ch.type!=='added')return;var d=ch.doc.data()||{};var id=ch.doc.id;if(seen.indexOf(id)!==-1)return;seen.push(id);if(seen.length>200)seen=seen.slice(-200);SafeStorage.setItem('lstream_global_seen',JSON.stringify(seen));pushNotifForUser(userState.username,'LStream',d.description||'',{id:'global_'+id,type:d.type||'update',title:d.title||'Update',image:d.image||'',kind:d.kind||'',time:d.createdAt&&d.createdAt.toMillis?d.createdAt.toMillis():Date.now()});});renderNotifBadge();if(notifOverlay&&notifOverlay.classList.contains('open'))renderNotifList();},function(err){var st=$('lsBroadcastStatus');if(st)st.textContent='Broadcast online belum aktif: '+((err&&err.code)||'permission').replace(/-/g,' ')+'. Fitur lokal tetap tersedia.';});
-      try{var uq=fs.query(fs.collection(globalDb,'lstream_user_notifications'),fs.limit(200));fs.onSnapshot(uq,function(snap){var seenU=[];try{seenU=JSON.parse(SafeStorage.getItem('lstream_user_seen')||'[]')}catch(e){};snap.docChanges().forEach(function(ch){if(ch.type!=='added')return;var d=ch.doc.data()||{};if(String(d.targetUsername||'')!==String(userState.username||''))return;var id=ch.doc.id;if(seenU.indexOf(id)!==-1)return;seenU.push(id);if(seenU.length>300)seenU=seenU.slice(-300);SafeStorage.setItem('lstream_user_seen',JSON.stringify(seenU));pushNotifForUser(userState.username,d.from||'LStream',d.text||'',{id:'user_'+id,type:d.type||'activity',title:d.title||d.from||'Notifikasi',image:d.image||'',time:d.time||Date.now()});});renderNotifBadge();if(notifOverlay&&notifOverlay.classList.contains('open'))renderNotifList();});}catch(e){}
       var st=$('lsBroadcastStatus');if(st)st.textContent='Broadcast online siap. Pastikan Firestore Rules mengizinkan read/write koleksi lstream_global_notifications.';
-      window.__lsPublishRemoteUserNotif=function(target,from,text,extra){try{if(!globalDb)return;var fs=window.__lsFirestoreModule||null;if(fs)return fs.addDoc(fs.collection(globalDb,'lstream_user_notifications'),Object.assign({targetUsername:target,from:from,text:text,time:Date.now(),createdAt:fs.serverTimestamp()},extra||{}));}catch(e){}};
     }catch(e){var st2=$('lsBroadcastStatus');if(st2)st2.textContent='Broadcast online belum tersedia. Notifikasi lokal tetap berjalan.';}
   }
   async function publishBroadcast(){
